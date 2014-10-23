@@ -6,6 +6,7 @@ class Arena:
     
     def collision(self, arena, ball):
         for side in arena.sides:
-            if side.collision(ball):
-                return side
+            [is_collision, new_ball] = side.collision(ball)
+            if is_collision:
+                ball = new_ball
 

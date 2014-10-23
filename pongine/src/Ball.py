@@ -3,4 +3,5 @@ class Ball:
         self.position = position
         self.direction = direction
         self.speed = speed
-        self.radius = radius 
+        self.radius = radius
+      
