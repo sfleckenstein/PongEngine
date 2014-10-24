@@ -3,7 +3,7 @@ from math import sqrt, pow
 from Ball import Ball
 
 class Side:
-    def __init__(self, start, end, speed_attenuation):
+    def __init__(self, start, end, next_start, next_end, speed_attenuation):
         self.start = start
         self.end = end
 
@@ -17,9 +17,32 @@ class Side:
         dx = end[0] - start[0]
         dy = end[1] - start[1]
 
-        # TODO: ensure that these point towards the inside of the arena 
-        # self.normal = [-dy, dx]
-        self.normal = [dy, -dx]
+        normal0 = [-dy, dx]
+        normal1 = [dy, -dx]
+
+        # This next chunk is used to determine which normal
+        # points towards the interior of the arena. This is
+        # necessary because if we use the exterior normal,
+        # we get wonky bounces.        
+
+        dx_next = next_end[0] - next_start[0]
+        dy_next = next_end[1] - next_start[1]
+
+        normal0_next = [-dy_next, dx_next]
+        normal1_next = [dy_next, -dx_next]
+        
+        # If we don't start the normal from the center of its side,
+        # it could miss the next_normal in the intersection detection
+        normal_start = [(end[0] - start[1])/2, (end[1] - start[1])/2] 
+        normal_next_start = [(next_end[0] - next_start[0])/2, (next_end[1] - next_start[1])]
+
+        if self.get_interior_normal(normal0, normal_start, normal0_next, normal_next_start) or self.get_interior_normal(normal0, normal_start, normal1_next, normal_next_start):
+            self.normal = normal0
+        elif self.get_interior_normal(normal1, normal_start, normal0_next, normal_next_start) or self.get_interior_normal(normal1, normal_start, normal1_next, normal_next_start):
+            self.normal = normal1
+        else:
+            # TODO: create own exception class for this
+            raise Exception("No interior normal found")
 
     def collision(self, ball):
         """Detects of a collision has occured between a side and a ball"""
@@ -63,3 +86,17 @@ class Side:
         r_y = ball.direction[1] - (two_d_dot_n / magnitude_n_squared) * self.normal[1]
 
         return Ball(ball.position, [r_x, r_y], new_speed, ball.radius)
+
+    # Checks to see which pair of normals intersect. The only rays that intersect will be 
+    # the two interior normals.
+    # Alorithm from Gunter Blache's answer to http://stackoverflow.com/questions/2931573/determining-if-two-rays-intersect 
+    def get_interior_normal(self, normal, normal_start, normal_next, normal_next_start):
+        dx = normal_next_start[0] - normal_start[0]
+        dy = normal_next_start[1] - normal_start[1]
+
+        det = normal_next[0] * normal[1] - normal_next[1] * normal[0]
+
+        u = ((dy * normal_next[0] - dx * normal_next[1]) * det) < 0
+        v = ((dy * normal[0] - dx * normal[1]) * det) < 0
+
+        return (u and v)

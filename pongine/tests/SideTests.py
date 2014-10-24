@@ -6,10 +6,10 @@ from src.Ball import Ball
 class SideTests(unittest.TestCase):
 
     def setUp(self):
-        self.side = Side([0, 0], [0, 2], 1.0)
-        self.faster_side = Side([0, 0], [0, 2], 1.5)
-        self.slower_side = Side([0, 0], [0, 2], 0.5)
-        self.side_45_col = Side([0, 0], [2, 0], 1.0)        
+        self.side = Side([0, 0], [0, 2], [0, 2], [2, 2], 1.0)
+        self.faster_side = Side([0, 0], [0, 2], [0, 2], [2, 2], 1.5)
+        self.slower_side = Side([0, 0], [0, 2], [0, 2], [2, 2], 0.5)
+        self.side_45_col = Side([0, 0], [2, 0], [2, 0], [2, 2], 1.0)        
 
         self.ball_col = Ball([1, 1], [0, 0], 0, 1)
         self.ball_no_col = Ball([10, 10], [0, 0], 0, 1)
