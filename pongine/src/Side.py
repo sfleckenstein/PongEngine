@@ -22,7 +22,7 @@ class Side:
 
         # This next chunk is used to determine which normal
         # points towards the interior of the arena. This is
-        # necessary because if we use the exterior normal,
+        # necessary because if we use the exterior normal
         # we get wonky bounces.        
 
         dx_next = next_end[0] - next_start[0]
@@ -33,8 +33,8 @@ class Side:
         
         # If we don't start the normal from the center of its side,
         # it could miss the next_normal in the intersection detection
-        normal_start = [(end[0] - start[1])/2, (end[1] - start[1])/2] 
-        normal_next_start = [(next_end[0] - next_start[0])/2, (next_end[1] - next_start[1])]
+        normal_start = start + [(end[0] - start[0])/2, (end[1] - start[1])/2] 
+        normal_next_start = next_start + [(next_end[0] - next_start[0])/2, (next_end[1] - next_start[1])]
 
         if self.get_interior_normal(normal0, normal_start, normal0_next, normal_next_start) or self.get_interior_normal(normal0, normal_start, normal1_next, normal_next_start):
             self.normal = normal0
@@ -99,4 +99,4 @@ class Side:
         u = ((dy * normal_next[0] - dx * normal_next[1]) * det) < 0
         v = ((dy * normal[0] - dx * normal[1]) * det) < 0
 
-        return (u and v)
+        return (not u and not v)
