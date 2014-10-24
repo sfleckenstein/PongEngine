@@ -15,7 +15,7 @@ class SideTests(unittest.TestCase):
         self.ball_no_col = Ball([10, 10], [0, 0], 0, 1)
         self.ball_in_side = Ball([0, 1], [0, 0], 0, 1)
         self.ball_perp_col = Ball([1, 1], [-1, 0], 1, 1)
-        self.ball_45_col = Ball([0, 1], [1, -1], 1, 1)
+        self.ball_45_col = Ball([1, 0], [-1, 1], 1, 1)
 
     def test_collision(self):
         [is_collision, new_ball] = self.side.collision(self.ball_col)
@@ -51,9 +51,6 @@ class SideTests(unittest.TestCase):
         
     def test_ball_direction_with_perp_collision(self):
         [is_collision, new_ball] = self.side.collision(self.ball_perp_col)
-
-        print(self.side.normal)
-
         self.assertEqual(new_ball.direction[0], -self.ball_perp_col.direction[0])
         self.assertEqual(new_ball.direction[1], self.ball_perp_col.direction[1])
 

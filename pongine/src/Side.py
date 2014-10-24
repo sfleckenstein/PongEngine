@@ -33,8 +33,14 @@ class Side:
         
         # If we don't start the normal from the center of its side,
         # it could miss the next_normal in the intersection detection
-        normal_start = start + [(end[0] - start[0])/2, (end[1] - start[1])/2] 
-        normal_next_start = next_start + [(next_end[0] - next_start[0])/2, (next_end[1] - next_start[1])]
+        normal_start_x = start[0] + (end[0] - start[0])/2
+        normal_start_y = start[1] + (end[1] - start[1])/2
+        
+        normal_start_next_x = next_start[0] + (next_end[0] - next_start[0])/2
+        normal_start_next_y = next_start[1] + (next_end[1] - next_start[1])/2
+        
+        normal_start = [normal_start_x, normal_start_y] 
+        normal_next_start = [normal_start_next_x, normal_start_next_y]
 
         if self.get_interior_normal(normal0, normal_start, normal0_next, normal_next_start) or self.get_interior_normal(normal0, normal_start, normal1_next, normal_next_start):
             self.normal = normal0
@@ -84,6 +90,8 @@ class Side:
 
         r_x = ball.direction[0] - (two_d_dot_n / magnitude_n_squared) * self.normal[0]
         r_y = ball.direction[1] - (two_d_dot_n / magnitude_n_squared) * self.normal[1]
+
+        new_ball = Ball(ball.position, [r_x, r_y], new_speed, ball.radius)
 
         return Ball(ball.position, [r_x, r_y], new_speed, ball.radius)
 
