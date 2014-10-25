@@ -1,15 +1,19 @@
 import unittest
 
+from src.Arena import Arena
 from src.Side import Side
 from src.Ball import Ball
 
 class SideTests(unittest.TestCase):
 
     def setUp(self):
-        self.side = Side([0, 0], [0, 2], [0, 2], [2, 2], 1.0)
-        self.faster_side = Side([0, 0], [0, 2], [0, 2], [2, 2], 1.5)
-        self.slower_side = Side([0, 0], [0, 2], [0, 2], [2, 2], 0.5)
-        self.side_45_col = Side([0, 0], [2, 0], [2, 0], [2, 2], 1.0)        
+        self.side = Side([0, 0], [0, 2], 1.0)
+        self.faster_side = Side([0, 2], [2, 2], 1.5)
+        self.slower_side = Side([2, 2], [2, 0], 0.5)
+        self.side_45_col = Side([2, 0], [0, 0], 1.0)        
+
+        # This is a hack to set the normals of all of the sides
+        self.arena = Arena([self.side, self.faster_side, self.slower_side, self.side_45_col]) 
 
         self.ball_col = Ball([1, 1], [0, 0], 0, 1)
         self.ball_no_col = Ball([10, 10], [0, 0], 0, 1)
