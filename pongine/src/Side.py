@@ -3,7 +3,7 @@ from math import sqrt, pow
 from Ball import Ball
 
 class Side:
-    def __init__(self, start, end, speed_attenuation):
+    def __init__(self, start, end, speed_attenuation, is_scoring=False):
         self.start = start
         self.end = end
 
@@ -13,6 +13,8 @@ class Side:
         # greater than 1 speed the ball up and values
         # less than 1 slow the ball down.
         self.speed_attenuation = speed_attenuation
+
+        self.is_scoring = is_scoring
 
     # Algorithm from http://mathworld.wolfram.com/Circle-LineIntersection.html
     def collision(self, ball):

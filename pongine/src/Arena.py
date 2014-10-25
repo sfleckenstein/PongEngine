@@ -1,6 +1,7 @@
-
 class Arena:
     def __init__(self, sides):
+        # The angles between sides must be in: [45, 90] in
+        # order to make sure that the paddle motion is reliable
         self.sides = sides
 
         for i in xrange(len(sides)):
