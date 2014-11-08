@@ -16,6 +16,11 @@ class Side:
 
         self.is_scoring = is_scoring
 
+        delta_x = end[0] - start[0]
+        delta_y = end[1] - start[1]
+
+        self.length = sqrt(pow(delta_x, 2) + pow(delta_y, 2))
+
     # Algorithm from http://mathworld.wolfram.com/Circle-LineIntersection.html
     def collision(self, ball):
         # First, normalize the coordinates so the ball is at (0,0)
