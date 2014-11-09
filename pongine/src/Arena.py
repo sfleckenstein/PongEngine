@@ -4,6 +4,9 @@ class Arena:
         # order to make sure that the paddle motion is reliable
         self.sides = sides
 
+        # The calculations for side normals use the potential
+        # normals of a neighbor to determine which potential
+        # normal is the interior one (the one we want)
         for i in xrange(len(sides)):
             next_index = (i + 1) % len(sides)
             sides[i].set_normal(sides[next_index])

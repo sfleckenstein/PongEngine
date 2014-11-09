@@ -1,4 +1,3 @@
-import math
 import Tkinter
 
 from Player import move_paddle
