@@ -1,3 +1,4 @@
+import pygame
 from math import sqrt, pow
 
 from Ball import Ball
@@ -114,4 +115,7 @@ class Side:
         else:
             # TODO: create own exception class for this
             raise Exception("No interior normal found")
-        
+       
+    def render(self, window, color):
+        pygame.draw.line(window, color, self.start, self.end)
+ 
