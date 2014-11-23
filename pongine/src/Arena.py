@@ -11,8 +11,8 @@ class Arena:
             next_index = (i + 1) % len(sides)
             sides[i].set_normal(sides[next_index])
     
-    def collision(self, arena, ball):
-        for side in arena.sides:
+    def collision(self, ball):
+        for side in self.sides:
             [is_collision, new_ball] = side.collision(ball)
             if is_collision:
                 ball = new_ball
