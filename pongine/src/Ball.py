@@ -11,7 +11,7 @@ class Ball:
         pygame.draw.circle(window, color, (self.position[0], self.position[1]), self.radius)
 
     def move(self, arena):
-        self.position[0] = self.position[0] + self.direction[0]
-        self.position[1] = self.position[1] + self.direction[1]
+        self.position[0] = self.position[0] + int(self.speed) * self.direction[0]
+        self.position[1] = self.position[1] + int(self.speed) * self.direction[1]
     
         arena.collision(self)
