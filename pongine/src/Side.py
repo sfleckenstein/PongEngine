@@ -61,6 +61,16 @@ class Side:
         r_x = ball.direction[0] - (two_d_dot_n / magnitude_n_squared) * self.normal[0]
         r_y = ball.direction[1] - (two_d_dot_n / magnitude_n_squared) * self.normal[1]
 
+        if r_x > 0:
+            r_x = 1
+        elif r_x < 0:
+            r_x = -1
+        
+        if r_y > 0:
+            r_y = 1
+        elif r_y < 0:
+            r_y = -1
+
         return Ball(ball.position, [r_x, r_y], new_speed, ball.radius)
 
     # Checks to see which pair of normals intersect. The only rays that intersect will be 

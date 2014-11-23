@@ -15,7 +15,8 @@ class Arena:
         for side in self.sides:
             [is_collision, new_ball] = side.collision(ball)
             if is_collision:
-                ball = new_ball
+                ball.direction = new_ball.direction
+                ball.speed = new_ball.speed
     
     def render(self, window, color):
         for side in self.sides:

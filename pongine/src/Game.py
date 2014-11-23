@@ -1,5 +1,6 @@
 import pygame
 import time
+import sys
 
 class Game:
     def __init__(self, Players, Arena, Balls):
